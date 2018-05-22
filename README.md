@@ -113,8 +113,9 @@ You will find the API documation in the first section of this document.
 
 ### Technical Requirements
 
+* Use Material-UI 1.0 for user interface components
 * Use the API to manage tasks.
-* Use `redux-promise-middleware`, `Redux`, and `axios` to create, fetch, update, complete, and delete tasks.
+* Use `redux-saga`, `Redux`, and `isomorphic-fetch` to create, fetch, update, complete, and delete tasks.
 * Use `react-router-dom` to create a new route to a detailed view of a task:
   * This route should use route parameters to know which task it is working with.
   * This route should be able to handle refreshing ( data should not be lost on refresh ).
