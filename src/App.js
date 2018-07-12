@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 
 const Title = () => {
@@ -12,7 +11,12 @@ const Title = () => {
   );
 }
 
-const TodoForm = ({addTodo}) => {
+// Unhappy with error handling. The basic idea is correct, but it
+// needs some CSS love so the tasks don't jump around when the
+// error appears.
+// Also, this should work when the user hits the enter key. Right
+// now you have to actually click the button. :/
+const TodoForm = ({addTodo, inputError}) => {
   let input;
 
   return (
@@ -24,8 +28,12 @@ const TodoForm = ({addTodo}) => {
         addTodo(input.value);
         input.value = '';
       }}>
-        +
+        Add Todo
       </button>
+      { inputError ?
+        <p>"Task cannot be blank."</p>
+        : null
+      }
     </div>
   );
 };
@@ -64,12 +72,21 @@ class App extends Component {
     const newTodo = {text: val, id: currentId}
     let allTodos = this.state.todos;
 
-    allTodos.push(newTodo);
-    // Update state
-    this.setState({
-      nextId: nextId,
-      todos: allTodos
-    });
+    if (!!val) {
+      allTodos.push(newTodo);
+
+      this.setState({
+        nextId: nextId,
+        todos: allTodos,
+        inputError: false
+      });
+    } else {
+      this.setState({
+        nextId: currentId,
+        todos: allTodos,
+        inputError: true
+      });
+    }
   }
   // I'm not sure if autobinding looks better.
   removeTodo = (id) => {
@@ -89,6 +106,7 @@ class App extends Component {
         <Title />
         <TodoForm
           addTodo={this.addTodo}
+          inputError={this.state.inputError}
         />
         <TodoList
           todos={this.state.todos}
