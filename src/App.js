@@ -11,16 +11,13 @@ const Title = () => {
   );
 }
 
-// Unhappy with error handling. The basic idea is correct, but it
-// needs some CSS love so the tasks don't jump around when the
-// error appears.
-// Also, this should work when the user hits the enter key. Right
+// This should work when the user hits the enter key. Right
 // now you have to actually click the button. :/
 const TodoForm = ({addTodo, inputError}) => {
   let input;
 
   return (
-    <div>
+    <div id="todo-form">
       <input ref={node => {
         input = node;
       }} />
@@ -31,28 +28,41 @@ const TodoForm = ({addTodo, inputError}) => {
         Add Todo
       </button>
       { inputError ?
-        <p>"Task cannot be blank."</p>
+        <p>Task cannot be blank.</p>
         : null
       }
     </div>
   );
 };
 
-const Todo = ({todo, remove}) => {
+const Todo = ({todo, remove, complete}) => {
+  const spanStyle = {float: "right"};
+
   return (
-    <li onClick={() => {
-      remove(todo.id);
-    }}>
-      {todo.text}
+    <li className={todo.completed ? "completed-task" : ""}>
+      {todo.title}
+      <span style={spanStyle}>
+        <button disabled={todo.completed} onClick={() => {
+          complete(todo.id);
+        }}>
+          Complete
+        </button>
+        <button onClick={() => {
+          remove(todo.id);
+        }}>
+          X
+        </button>
+      </span>
     </li>
   );
 }
 
-const TodoList = ({todos, remove}) => {
+const TodoList = ({todos, remove, complete}) => {
+  const listStyle = {maxWidth: "50%"};
   const todoNode = todos.map((todo) => {
-    return (<Todo todo={todo} key={todo.id} remove={remove}/>)
+    return (<Todo todo={todo} key={todo.id} remove={remove} complete={complete}/>)
   });
-  return (<ul>{todoNode}</ul>);
+  return (<ul style={listStyle}>{todoNode}</ul>);
 }
 
 class App extends Component {
@@ -66,10 +76,9 @@ class App extends Component {
     }
   }
   addTodo = (val) => {
-    // Assemble data
     const currentId = this.state.nextId;
     const nextId = currentId + 1;
-    const newTodo = {text: val, id: currentId}
+    const newTodo = {title: val, id: currentId, completed: false}
     let allTodos = this.state.todos;
 
     if (!!val) {
@@ -100,6 +109,21 @@ class App extends Component {
     });
   }
 
+  completeTodo = (id) => {
+    const updatedTodos = this.state.todos.map(todo => {
+      if(todo.id == id) {
+        todo.completed = true;
+      }
+
+      return todo;
+    });
+
+    this.setState({
+      nextId: this.state.nextId,
+      todos: updatedTodos
+    });
+  }
+
   render(){
     return (
       <div>
@@ -108,9 +132,11 @@ class App extends Component {
           addTodo={this.addTodo}
           inputError={this.state.inputError}
         />
+        <hr />
         <TodoList
           todos={this.state.todos}
           remove={this.removeTodo}
+          complete={this.completeTodo}
         />
       </div>
     );
