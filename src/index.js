@@ -1,18 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './reducers';
+import createSagaMiddleware from 'redux-saga'
+import mySaga from './sagas'
+import Api from './api'
 
-const store = createStore(rootReducer);
+// Not sure if this is the best way to populate initial state.
+Api.fetchTodos().then(todos => {
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
-registerServiceWorker();
+  const sagaMiddleware = createSagaMiddleware()
+  const initialState = {
+    inputError: false,
+    todos
+  }
+
+  const store = createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(sagaMiddleware)
+  )
+
+  sagaMiddleware.run(mySaga)
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root')
+  );
+  registerServiceWorker();
+})

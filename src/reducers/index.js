@@ -1,51 +1,38 @@
+// TODO: Add handlers for API errors
 import {
-  ADD_TODO,
-  COMPLETE_TODO,
-  REMOVE_TODO
+  ADD_TODO_SUCCEEDED,
+  COMPLETE_TODO_SUCCEEDED,
+  REMOVE_TODO_SUCCEEDED,
+  INPUT_ERROR
 } from '../actions'
 
 const initialState = {
   todos: [],
-  nextId: 0,
   inputError: false
 }
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TODO:
-      if(!action.title) {
+    case ADD_TODO_SUCCEEDED:
+        return {
+          todos: action.todos,
+          inputError: false
+        }
+    case COMPLETE_TODO_SUCCEEDED:
+        return {
+          todos: action.todos,
+          inputError: false
+        }
+    case REMOVE_TODO_SUCCEEDED:
+        return {
+          todos: action.todos,
+          inputError: false
+        }
+    case INPUT_ERROR:
         return {
           ...state,
           inputError: true
         }
-      } else {
-        return {
-          todos: [
-            ...state.todos,
-            {
-              id: state.nextId,
-              title: action.title,
-              completed: false
-            }
-          ],
-          nextId: state.nextId + 1,
-          inputError: false
-        }
-      }
-    case COMPLETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.map(todo =>
-          (todo.id === action.id)
-            ? {...todo, completed: true}
-            : todo
-        )
-      }
-    case REMOVE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter(todo => todo.id !== action.id)
-      }
     default:
       return state
   }
