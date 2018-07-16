@@ -1,16 +1,16 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
-import Title from './components/title';
-import TodoFormContainer from './components/todo_form_container';
-import TodoListContainer from './components/todo_list_container';
+import TodoIndex from './components/todos_index';
+import TodoShow from './components/todo_show';
 
 const App = () => (
-  <div>
-    <Title />
-    <TodoFormContainer />
-    <hr />
-    <TodoListContainer />
-  </div>
+  <Router>
+    <div>
+      <Route path="/todo/:id" component={TodoShow} />
+      <Route path="/" component={TodoIndex} exact />
+    </div>
+  </Router>
 )
 
 export default App;

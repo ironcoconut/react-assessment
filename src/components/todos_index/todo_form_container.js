@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import {
   addTodo
-} from '../actions'
+} from '../../actions'
 import TodoForm from './todo_form';
 
 const mapStateToProps = state => {

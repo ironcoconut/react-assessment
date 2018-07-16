@@ -1,12 +1,16 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 
 const Todo = ({id, completed, title, remove, complete}) => {
   const spanStyle = {float: "right"};
+  const link = "/todo/"+id;
 
   return (
     <li className={completed ? "completed-task" : ""}>
-      {title}
+      <Link to={link}>
+        {title}
+      </Link>
       <span style={spanStyle}>
         <button disabled={completed} onClick={() => {
           complete(id);
