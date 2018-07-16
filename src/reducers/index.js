@@ -3,6 +3,7 @@ import {
   ADD_TODO_SUCCEEDED,
   COMPLETE_TODO_SUCCEEDED,
   REMOVE_TODO_SUCCEEDED,
+  UPDATE_TODO_SUCCEEDED,
   INPUT_ERROR
 } from '../actions'
 
@@ -24,6 +25,11 @@ const todos = (state = initialState, action) => {
           inputError: false
         }
     case REMOVE_TODO_SUCCEEDED:
+        return {
+          todos: action.todos,
+          inputError: false
+        }
+    case UPDATE_TODO_SUCCEEDED:
         return {
           todos: action.todos,
           inputError: false

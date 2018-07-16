@@ -16,6 +16,10 @@ const api = {
   },
   completeTodo(id) {
     return Fetch(url+id, {method: 'PUT', headers: headers }).then(res => res.json())
+  },
+  updateTodo(id, title, description) {
+    const body = { title: title, description: description }
+    return Fetch(url+id, {method: 'PATCH', body: JSON.stringify(body), headers: headers }).then(res => res.json())
   }
 }
 

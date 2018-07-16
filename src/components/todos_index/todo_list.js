@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Todo from './todo';
 
 const TodoList = ({todos, remove, complete}) => {
-  const listStyle = {maxWidth: "50%"};
+  const listStyle = {paddingLeft: "20px"};
   const todoNode = todos.map((todo) => {
     return (<Todo {...todo} key={todo.id} remove={remove} complete={complete}/>)
   });

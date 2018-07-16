@@ -14,6 +14,10 @@ export const COMPLETE_TODO_REQUESTED = 'COMPLETE_TODO_REQUESTED'
 export const COMPLETE_TODO_SUCCEEDED = 'COMPLETE_TODO_SUCCEEDED'
 export const COMPLETE_TODO_FAILED = 'COMPLETE_TODO_FAILED'
 
+export const UPDATE_TODO_REQUESTED = 'UPDATE_TODO_REQUESTED'
+export const UPDATE_TODO_SUCCEEDED = 'UPDATE_TODO_SUCCEEDED'
+export const UPDATE_TODO_FAILED = 'UPDATE_TODO_FAILED'
+
 export const INPUT_ERROR = 'INPUT_ERROR'
 
 export const addTodo = title => {
@@ -37,6 +41,13 @@ export const completeTodo = id => ({
 export const removeTodo = id => ({
   type: REMOVE_TODO_REQUESTED,
   id
+})
+
+export const updateTodo = (id, title, description) => ({
+  type: UPDATE_TODO_REQUESTED,
+  id,
+  title,
+  description
 })
 
 export const fetchTodos = () => ({
