@@ -15,7 +15,6 @@ Api.fetchTodos().then(todos => {
 
   const sagaMiddleware = createSagaMiddleware()
   const initialState = {
-    inputError: false,
     todos
   }
 

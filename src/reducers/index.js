@@ -4,40 +4,29 @@ import {
   COMPLETE_TODO_SUCCEEDED,
   REMOVE_TODO_SUCCEEDED,
   UPDATE_TODO_SUCCEEDED,
-  INPUT_ERROR
 } from '../actions'
 
 const initialState = {
-  todos: [],
-  inputError: false
+  todos: []
 }
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO_SUCCEEDED:
         return {
-          todos: action.todos,
-          inputError: false
+          todos: action.todos
         }
     case COMPLETE_TODO_SUCCEEDED:
         return {
-          todos: action.todos,
-          inputError: false
+          todos: action.todos
         }
     case REMOVE_TODO_SUCCEEDED:
         return {
-          todos: action.todos,
-          inputError: false
+          todos: action.todos
         }
     case UPDATE_TODO_SUCCEEDED:
         return {
-          todos: action.todos,
-          inputError: false
-        }
-    case INPUT_ERROR:
-        return {
-          ...state,
-          inputError: true
+          todos: action.todos
         }
     default:
       return state

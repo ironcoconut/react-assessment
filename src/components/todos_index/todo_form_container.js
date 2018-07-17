@@ -4,9 +4,8 @@ import {
 } from '../../actions'
 import TodoForm from './todo_form';
 
-const mapStateToProps = state => {
-  return { inputError: state.inputError };
-}
+// TODO: Is this necessary?
+const mapStateToProps = state => {}
 
 const mapDispatchToProps = dispatch => {
   return {

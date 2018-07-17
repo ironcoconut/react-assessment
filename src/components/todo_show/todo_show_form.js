@@ -68,8 +68,8 @@ class TodoShowForm extends React.Component {
           <label>
             Task
           </label>
-        <div>
         </div>
+        <div>
           <input
             name="title"
             type="text"

@@ -3,31 +3,62 @@ import PropTypes from 'prop-types';
 
 // This should work when the user hits the enter key. Right
 // now you have to actually click the button. :/
-const TodoForm = ({inputError, addTodo}) => {
-  let input;
+class TodoForm extends React.Component  {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      titleError: false
+    };
+    console.log(this.state);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-  return (
-    <div id="todo-form">
-      <input ref={node => {
-        input = node;
-      }} />
-      <button onClick={() => {
-        addTodo(input.value);
-        input.value = '';
-      }}>
-        Add Todo
-      </button>
-      { inputError ?
-        <p>Task cannot be blank.</p>
-        : null
-      }
-    </div>
-  );
+  handleInputChange(event) {
+    this.setState({
+      title: event.target.value
+    })
+  }
+
+  handleSubmit() {
+    let title = this.state.title;
+    console.log('title:', title.trim());
+
+    // Don't save only spaces
+    if(title.trim()) {
+      this.props.addTodo(title);
+      this.setState({
+        title: "",
+        titleError: false
+      })
+    } else {
+      this.setState({titleError: true})
+    }
+  }
+
+  render() {
+    return (
+      <div id="todo-form">
+        <input
+          name="title"
+          type="text"
+          value={this.state.title}
+          onChange={this.handleInputChange} />
+        <button onClick={this.handleSubmit}>
+          Add Todo
+        </button>
+        { this.state.titleError ?
+          <p>Task cannot be blank.</p>
+          : null
+        }
+      </div>
+    );
+  }
 };
 
 TodoForm.propTypes = {
-  addTodo: PropTypes.func.isRequired,
-  inputError: PropTypes.bool.isRequired
+  addTodo: PropTypes.func.isRequired
 }
 
 export default TodoForm;

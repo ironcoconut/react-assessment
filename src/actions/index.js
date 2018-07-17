@@ -18,20 +18,10 @@ export const UPDATE_TODO_REQUESTED = 'UPDATE_TODO_REQUESTED'
 export const UPDATE_TODO_SUCCEEDED = 'UPDATE_TODO_SUCCEEDED'
 export const UPDATE_TODO_FAILED = 'UPDATE_TODO_FAILED'
 
-export const INPUT_ERROR = 'INPUT_ERROR'
-
-export const addTodo = title => {
-  if(title) {
-    return {
-      type: ADD_TODO_REQUESTED,
-      title
-    }
-  } else {
-    return {
-      type: INPUT_ERROR
-    }
-  }
-}
+export const addTodo = title => ({
+  type: ADD_TODO_REQUESTED,
+  title
+})
 
 export const completeTodo = id => ({
   type: COMPLETE_TODO_REQUESTED,
