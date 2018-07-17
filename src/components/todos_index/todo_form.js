@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
@@ -55,7 +54,7 @@ class TodoForm extends React.Component  {
 
   render() {
     const { classes } = this.props;
-    const { title, titleError } = this. state;
+    const { title, titleError } = this.state;
 
     return (
       <div>

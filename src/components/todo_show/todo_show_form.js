@@ -107,6 +107,7 @@ class TodoShowForm extends React.Component {
             label="Description"
             name="description"
             type="text"
+            fullWidth={true}
             value={description}
             onChange={this.handleInputChange} />
         </div>
