@@ -1,11 +1,12 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
 
 const Title = () => {
   return (
     <div>
-       <div>
-          <h1>Welcome to Simple To-Do!</h1>
-       </div>
+      <Typography variant="headline" component="h3">
+        Simple To-Do!
+      </Typography>
     </div>
   );
 }

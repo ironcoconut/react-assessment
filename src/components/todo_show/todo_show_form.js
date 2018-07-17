@@ -1,6 +1,20 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+const styles = theme => ({
+  button: {
+    marginTop: theme.spacing.unit,
+    marginRight: theme.spacing.unit
+  },
+  completeButton: {
+    marginLeft: theme.spacing.unit
+  }
+});
 
 // This should work when the user hits the enter key. Right
 // now you have to actually click the button. :/
@@ -62,54 +76,58 @@ class TodoShowForm extends React.Component {
   }
 
   render() {
+    const { title, description, titleError } = this.state;
+    const { todo: { completed }, classes } = this.props;
+
     return (
       <div>
-        <p>
+        <Typography gutterBottom variet="subheading">
           <Link to='/'>
            {"<"} Back to tasks
           </Link>
-        </p>
+        </Typography>
         <div>
-          <label>
-            Task
-          </label>
-        </div>
-        <div>
-          <input
+          <TextField
+            label="Task"
             name="title"
             type="text"
-            value={this.state.title}
+            error={titleError}
+            value={title}
+            helperText={titleError ? "Task cannot be blank" : null}
             onChange={this.handleInputChange} />
-          <button disabled={this.props.todo.completed} onClick={this.handleComplete}>
-            Complete
-          </button>
-          { this.state.titleError ?
-            <p>Task cannot be blank.</p>
-            : null
-          }
+          <Button
+            className={classes.completeButton}
+            disabled={completed}
+            variant="outlined"
+            onClick={this.handleComplete}
+            children="Complete" />
         </div>
         <div>
-          <label>
-            Description
-          </label>
-        <div>
-        </div>
-          <input
+          <TextField
+            label="Description"
             name="description"
             type="text"
-            value={this.state.description}
+            value={description}
             onChange={this.handleInputChange} />
         </div>
         <div>
-          <button onClick={this.handleSubmit}>
-            Save
-          </button>
-          <button onClick={this.handleCancel}>
-            Cancel
-          </button>
-          <button onClick={this.handleDelete}>
-            Delete
-          </button>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            children="Save"
+            onClick={this.handleSubmit} />
+          <Button
+            className={classes.button}
+            variant="contained"
+            children="Cancel"
+            onClick={this.handleCancel} />
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="secondary"
+            children="Delete"
+            onClick={this.handleDelete} />
         </div>
       </div>
     );
@@ -123,4 +141,4 @@ TodoShowForm.propTypes = {
   completeTodo: PropTypes.func.isRequired,
 }
 
-export default TodoShowForm;
+export default withStyles(styles)(TodoShowForm);

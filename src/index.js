@@ -9,6 +9,7 @@ import rootReducer from './reducers';
 import createSagaMiddleware from 'redux-saga'
 import mySaga from './sagas'
 import Api from './api'
+import 'typeface-roboto'
 
 // Not sure if this is the best way to populate initial state.
 Api.fetchTodos().then(todos => {

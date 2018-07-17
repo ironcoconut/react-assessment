@@ -2,15 +2,3 @@ body {
   max-width: 350px;
   margin: auto;
 }
-
-li {
-  height: 25px;
-}
-
-#todo-form {
-  height: 60px;
-}
-
-.completed-task {
-  text-decoration: line-through;
-}
