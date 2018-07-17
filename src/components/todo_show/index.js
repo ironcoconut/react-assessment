@@ -1,8 +1,9 @@
 import React from 'react';
+import TodoShowContainer from './todo_show_container';
 
-const TodoShow = () => (
+const TodoShow = ({ match: { params }, history }) => (
   <div>
-  Woot!
+    <TodoShowContainer id={params.id} history={history} />
   </div>
 )
 
