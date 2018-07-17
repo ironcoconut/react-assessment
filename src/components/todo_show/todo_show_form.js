@@ -9,7 +9,8 @@ class TodoShowForm extends React.Component {
     super(props);
     this.state = {
       title: props.todo.title,
-      description: props.todo.description
+      description: props.todo.description,
+      titleError: false
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,8 +33,12 @@ class TodoShowForm extends React.Component {
     const { id, history, updateTodo } = this.props;
     const { title, description } = this.state;
 
-    updateTodo(id, title, description);
-    history.push('/');
+    if(title.trim()) {
+      updateTodo(id, title, description);
+      history.push('/');
+    } else {
+      this.setState({ titleError: true })
+    }
   }
 
   handleCancel() {
@@ -75,9 +80,13 @@ class TodoShowForm extends React.Component {
             type="text"
             value={this.state.title}
             onChange={this.handleInputChange} />
-          <button onClick={this.handleComplete}>
+          <button disabled={this.props.todo.completed} onClick={this.handleComplete}>
             Complete
           </button>
+          { this.state.titleError ?
+            <p>Task cannot be blank.</p>
+            : null
+          }
         </div>
         <div>
           <label>

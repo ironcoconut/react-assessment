@@ -10,7 +10,6 @@ class TodoForm extends React.Component  {
       title: '',
       titleError: false
     };
-    console.log(this.state);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -23,7 +22,6 @@ class TodoForm extends React.Component  {
 
   handleSubmit() {
     let title = this.state.title;
-    console.log('title:', title.trim());
 
     // Don't save only spaces
     if(title.trim()) {

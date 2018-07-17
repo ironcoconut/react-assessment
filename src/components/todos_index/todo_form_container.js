@@ -4,9 +4,6 @@ import {
 } from '../../actions'
 import TodoForm from './todo_form';
 
-// TODO: Is this necessary?
-const mapStateToProps = state => {}
-
 const mapDispatchToProps = dispatch => {
   return {
     addTodo: title => {
@@ -16,7 +13,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 const TodoFormContainer = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(TodoForm)
 
